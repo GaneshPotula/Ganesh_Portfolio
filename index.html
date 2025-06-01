@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ganesh Kumar Potula | Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Base font & smooth scrolling */
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #f8fafc;
+      padding-top: 56px; /* space for fixed navbar */
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      backdrop-filter: saturate(180%) blur(12px);
+      background-color: rgba(15, 23, 42, 0.85);
+      box-shadow: 0 2px 10px rgb(15 23 42 / 0.5);
+      transition: background-color 0.3s ease;
+      z-index: 9999;
+    }
+    nav:hover {
+      background-color: rgba(15, 23, 42, 0.98);
+    }
+
+    nav .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: #7c3aed;
+      user-select: none;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      color: #cbd5e1;
+      transition: color 0.3s ease;
+      position: relative;
+      padding: 0.25rem 0;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: #7c3aed;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #7c3aed;
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+
+    /* Theme toggle button */
+    #themeToggle {
+      font-size: 1.2rem;
+      background-color: transparent;
+      border: 2px solid #7c3aed;
+      color: #7c3aed;
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+    }
+    #themeToggle:hover, #themeToggle:focus {
+      background-color: #7c3aed;
+      color: #f8fafc;
+      outline: none;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    header img {
+      width: 130px;
+      height: 130px;
+      border-radius: 9999px;
+      border: 5px solid #7c3aed;
+      box-shadow: 0 8px 20px rgb(124 58 237 / 0.4);
+      object-fit: cover;
+      transition: box-shadow 0.3s ease;
+      cursor: default;
+    }
+    header img:hover {
+      box-shadow: 0 8px 40px rgb(124 58 237 / 0.7);
+    }
+    header h1 {
+      font-weight: 900;
+      font-size: 3rem;
+      margin-top: 1rem;
+      letter-spacing: 0.05em;
+      color: #e0e7ff;
+    }
+    #typewriter {
+      margin-top: 0.5rem;
+      font-weight: 600;
+      font-size: 1.3rem;
+      height: 28px;
+      color: #a5b4fc;
+      letter-spacing: 0.04em;
+      position: relative;
+      user-select: none;
+    }
+    #typewriter::after {
+      content: '|';
+      position: absolute;
+      right: 0;
+      animation: blink 1s steps(2, start) infinite;
+      color: #7c3aed;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* Section Titles */
+    section h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #c7d2fe;
+      text-align: center;
+      margin-bottom: 2rem;
+      text-shadow: 0 2px 8px rgb(124 58 237 / 0.7);
+    }
+
+    /* Sections styling */
+    section {
+      max-width: 900px;
+      margin: 0 auto 6rem;
+      padding: 2rem 2.5rem;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgb(124 58 237 / 0.3);
+      backdrop-filter: saturate(180%) blur(15px);
+      color: #e0e7ff;
+      transition: background-color 0.3s ease;
+    }
+    section:hover {
+      background: rgba(124, 58, 237, 0.15);
+      color: #f8fafc;
+      box-shadow: 0 10px 30px rgb(124 58 237 / 0.7);
+    }
+
+    /* Paragraphs */
+    section p {
+      font-size: 1.125rem;
+      line-height: 1.65;
+      color: #dbeafe;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Project cards grid */
+    #projects > div {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    #projects .project-card {
+      background: #1e293b;
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgb(124 58 237 / 0.4);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+    #projects .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgb(124 58 237 / 0.8);
+    }
+    #projects img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-bottom: 3px solid #7c3aed;
+    }
+    #projects h3 {
+      font-weight: 700;
+      font-size: 1.4rem;
+      padding: 1rem 1.25rem 0.5rem;
+      color: #ddd6fe;
+    }
+    #projects p {
+      padding: 0 1.25rem 1rem;
+      color: #c7d2fe;
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+    #projects a {
+      display: inline-block;
+      padding: 0 1.25rem 1rem;
+      font-weight: 600;
+      color: #a78bfa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    #projects a:hover {
+      color: #7c3aed;
+      text-decoration: underline;
+    }
+
+    /* Skill bars */
+    .skill-wrapper {
+      margin-bottom: 1.5rem;
+    }
+    .skill-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #ddd6fe;
+    }
+    .skill-bar-bg {
+      background: #3b82f6;
+      border-radius: 0.75rem;
+      height: 20px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgb(59 130 246 / 0.4);
+    }
+    .skill-bar-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #7c3aed, #8b5cf6);
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgb(124 58 237 / 0.7);
+      transition: width 2.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Lists */
+    ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.125rem;
+      color: #dbeafe;
+      line-height: 1.6;
+    }
+    ul li {
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* Education & Workshops items */
+    .edu-item, .workshop-item {
+      background: #312e81;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 3px 12px rgb(124 58 237 / 0.45);
+      transition: background-color 0.3s ease;
+      cursor: default;
+    }
+    .edu-item:hover, .workshop-item:hover {
+      background-color: #4c1d95;
+      box-shadow: 0 6px 18px rgb(124 58 237 / 0.8);
+      color: #f3e8ff;
+    }
+
+    /* Contact section */
+    #contact p {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #c7d2fe;
+    }
+    #contact a {
+      background-color: #7c3aed;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 1.125rem;
+      box-shadow: 0 4px 20px rgb(124 58 237 / 0.8);
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    #contact a:hover {
+      background-color: #a78bfa;
+      box-shadow: 0 6px 24px rgb(167 139 250 / 0.9);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1e293b;
+      color: #a5b4fc;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-weight: 500;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      user-select: none;
+      box-shadow: inset 0 2px 8px rgb(124 58 237 / 0.25);
+      margin-top: 4rem;
+    }
+
+    /* Back to top button */
+    #backToTop {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      background: #7c3aed;
+      color: #f8fafc;
+      width: 44px;
+      height: 44px;
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-radius: 9999px;
+      border: none;
+      box-shadow: 0 4px 18px rgb(124 58 237 / 0.8);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      z-index: 9999;
+    }
+    #backToTop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #backToTop:hover {
+      background: #a78bfa;
+      box-shadow: 0 6px 24px rgb(167 139 250 / 0.9);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.4rem;
+      }
+      section {
+        padding: 1.5rem 1.5rem;
+      }
+      #projects > div {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 w-full flex justify-between items-center px-8 py-3">
+    <div class="logo" tabindex="0" aria-label="Portfolio Logo">GK PORTFOLIO</div>
+     <ul class="hidden md:flex space-x-8">
+      <li><a href="#about">About</a></li>
+      
+      
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#skills">Skills</a></li>
+      
+      <li><a href="#workshops">Workshops</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#contact">Contact</a></li>
+      
+    </ul>
+    <button id="themeToggle" aria-label="Toggle Theme">☀️</button>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <img src="images/gane.jpg" alt="Ganesh Kumar Potula Profile Picture" loading="lazy" />
+    <h1>Ganesh Kumar Potula</h1>
+    <p id="typewriter" aria-live="polite" aria-atomic="true"></p>
+    <div class="mt-5 flex justify-center gap-6">
+      <a href="https://github.com/GaneshPotula" target="_blank" rel="noopener" aria-label="GitHub Profile" class="underline decoration-indigo-400 hover:decoration-indigo-600 font-semibold">GitHub</a>
+      <a href="https://linkedin.com/in/ganeshpotula" target="_blank" rel="noopener" aria-label="LinkedIn Profile" class="underline decoration-indigo-400 hover:decoration-indigo-600 font-semibold">LinkedIn</a>
+      <a href='https://drive.google.com/file/d/1PPJz4Qy_nq8V9J31z7lX4_g7K23cpfHT/view?usp=drive_link' target="_blank" rel="noopener" aria-label="Download Resume" class="underline decoration-indigo-400 hover:decoration-indigo-600 font-semibold">Resume</a>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" data-aos="fade-up" tabindex="0" aria-label="About Me">
+    <h2>About Me</h2>
+    <p>
+      I am a B.Tech student specializing in Artificial Intelligence and Machine Learning at VR Siddhartha Engineering College. I am passionate about developing intelligent systems, deep learning, and building innovative projects that impact society positively.
+    </p>
+  </section>
+
+  
+  <!-- Education Section -->
+<section id="education" class="py-12 max-w-5xl mx-auto px-6" data-aos="fade-up" tabindex="0" aria-label="Education">
+  <h2 class="text-4xl font-bold mb-10 text-center text-white">Education</h2>
+  <ul class="space-y-8 max-w-3xl mx-auto text-white text-center text-lg font-medium">
+    <li>
+      <h3 class="text-2xl font-semibold">B.Tech in Artificial Intelligence and Machine Learning</h3>
+      <p>VR Siddhartha Engineering College (2022 – 2026)</p>
+    </li>
+    <li>
+      <h3 class="text-2xl font-semibold">Intermediate</h3>
+      <p>Sasi New Gen Junior College, Tanuku</p>
+    </li>
+    <li>
+      <h3 class="text-2xl font-semibold">10th</h3>
+      <p>Netaji Sri Vidyaniketan, Kakinada</p>
+    </li>
+  </ul>
+</section>
+
+<!-- Projects Section -->
+  <section id="projects" data-aos="fade-up" tabindex="0" aria-label="Projects Portfolio">
+    <h2>Projects</h2>
+    <div>
+      <div class="project-card" tabindex="0" aria-label="Project: YOLOv8 Triple Riding Detection">
+        <img src="images/interface.png" alt="YOLOv8 Triple Riding Detection Project Screenshot" loading="lazy" />
+        <h3>Real-Time Helmet and Triple Riding Detection for Road Safety using YOLOv</h3>
+        <p>Developed an AI model to detect triple riding and helmet usage with 95.1% accuracy using YOLOv8.</p>
+        <a href="https://github.com/GaneshPotula/hel_triple_ride_detection" target="_blank" rel="noopener" aria-label="View project on GitHub">View on GitHub</a>
+      </div>
+      <div class="project-card" tabindex="0" aria-label="Project: ">
+        <img src="images/evm1.jpg" alt="EVM" loading="lazy" />
+        <h3>Enhancing EVM Security with Fingerprint Based Biometric Authentication</h3>
+        <p>We are developed a fingerprint-based biometric voting system using an Arduino Uno microcontroller and the AS608 Fingerprint Module to enhance election security. </p>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Section -->
+<section id="certificates" data-aos="fade-up">
+  <h2>Certificates</h2>
+  <div class="workshop-item">Ethical Hacking – Nptel</div>
+  <div class="workshop-item">Privacy and Security in Online Social Media - Nptel</div>
+  <div class="workshop-item"> C Programming - Cisco Networking Academy</div>
+  <div class="workshop-item">Cisco – Python, Cyber Security, IoT, Linux Essentials</div>
+  <div class="workshop-item">EDX – Java Programming, Data Science with Python</div>
+  <div class="workshop-item">UiPath Hackabot – 3rd Place for Language Translator App</div>
+</section>
+
+  <!-- Skills Section -->
+  <section id="skills" data-aos="fade-up" tabindex="0" aria-label="Skills and Languages">
+    <h2>Skills</h2>
+    <div class="skill-wrapper" aria-label="C skill proficiency">
+      <div class="skill-label">C</div>
+      <div class="skill-bar-bg" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+        <div class="skill-bar-fill" data-progress="70%"></div>
+      </div>
+    </div>
+
+    <div class="skill-wrapper" aria-label="Python skill proficiency">
+      <div class="skill-label">Python</div>
+      <div class="skill-bar-bg" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+        <div class="skill-bar-fill" data-progress="80%"></div>
+      </div>
+    </div>
+    <div class="skill-wrapper" aria-label="Java skill proficiency">
+      <div class="skill-label">Java</div>
+      <div class="skill-bar-bg" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+        <div class="skill-bar-fill" data-progress="70%"></div>
+      </div>
+    </div>
+    
+
+    <div class="skill-wrapper" aria-label="Machine Learning skill proficiency">
+      <div class="skill-label">Machine Learning</div>
+      <div class="skill-bar-bg" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+        <div class="skill-bar-fill" data-progress="60%"></div>
+      </div>
+    </div>
+
+    <div class="skill-wrapper" aria-label="Deep Learning skill proficiency">
+      <div class="skill-label">Deep Learning</div>
+      <div class="skill-bar-bg" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        <div class="skill-bar-fill" data-progress="50%"></div>
+      </div>
+    </div>
+    
+
+   
+  </section>
+
+
+<!-- Workshops Section -->
+<section id="workshops" class="py-12 max-w-5xl mx-auto px-6 bg-indigo-900 rounded-lg" data-aos="fade-up" tabindex="0" aria-label="Workshops and Events">
+  <h2 class="text-4xl font-bold mb-10 text-center text-white">Workshops & Events</h2>
+  <ul class="space-y-6 max-w-3xl mx-auto text-white text-center text-lg font-medium">
+    <li class="bg-indigo-700 rounded-lg py-3 px-6 hover:bg-indigo-600 cursor-default transition">
+      ML Workshop – APSSDC
+    </li>
+    <li class="bg-indigo-700 rounded-lg py-3 px-6 hover:bg-indigo-600 cursor-default transition">
+      Design Thinking – SAP
+    </li>
+    <li class="bg-indigo-700 rounded-lg py-3 px-6 hover:bg-indigo-600 cursor-default transition">
+      Hack-a-bot – UiPath
+    </li>
+  </ul>
+</section>
+
+<!-- Languages Section -->
+<section id="languages" class="py-12 max-w-5xl mx-auto px-6" data-aos="fade-up" tabindex="0" aria-label="Languages Known">
+  <h2 class="text-4xl font-bold mb-10 text-center text-white">Languages Known</h2>
+  <div class="flex flex-wrap justify-center gap-6 max-w-3xl mx-auto">
+    <span class="bg-indigo-700 text-white px-8 py-3 rounded-full font-semibold cursor-default">English</span>
+    <span class="bg-indigo-700 text-white px-8 py-3 rounded-full font-semibold cursor-default">Telugu</span>
+    <span class="bg-indigo-700 text-white px-8 py-3 rounded-full font-semibold cursor-default">Hindi</span>
+  </div>
+</section>
+
+
+
+
+  <!-- Contact Section -->
+  <section id="contact" data-aos="fade-up" tabindex="0" aria-label="Contact Information">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:kumarpotula291@gmail.com" class="underline hover:text-indigo-300">kumarpotula291@gmail.com</a></p>
+    <p>Phone: +91 9014172642</p>
+    <div class="text-center">
+      <a href="mailto:kumarpotula291@gmail.com" aria-label="Send email to Ganesh" class="inline-block">Send Email</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer aria-label="Footer">
+    <p>© 2025 Ganesh Kumar Potula. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" aria-label="Back to Top">↑</button>
+
+  <!-- Scripts -->
+  <script>
+    // Typewriter effect
+    const typewriterText = "Artificial Intelligence | Machine Learning | Deep Learning";
+    const typewriterElement = document.getElementById('typewriter');
+    let i = 0;
+    function typeWriter() {
+      if (i < typewriterText.length) {
+        typewriterElement.textContent += typewriterText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 70);
+      }
+    }
+    typeWriter();
+
+    // Animate skill bars on load
+    function animateSkills() {
+      const skillBars = document.querySelectorAll('.skill-bar-fill');
+      skillBars.forEach(bar => {
+        const progress = bar.getAttribute('data-progress');
+        bar.style.width = progress;
+      });
+    }
+    window.addEventListener('load', animateSkills);
+
+    // Back to top button functionality
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 350) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      if(document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        themeToggle.textContent = '🌙';
+        document.body.style.background = 'linear-gradient(135deg, #0f172a, #1e293b)';
+        document.body.style.color = '#f8fafc';
+      } else {
+        document.documentElement.classList.add('dark');
+        themeToggle.textContent = '☀️';
+        document.body.style.background = '#1a202c';
+        document.body.style.color = '#e2e8f0';
+      }
+    });
+
+    // Initialize AOS (Animate on Scroll)
+    AOS.init({
+      duration: 900,
+      once: true,
+      easing: 'ease-in-out',
+    });
+  </script>
+</body>
+</html>
